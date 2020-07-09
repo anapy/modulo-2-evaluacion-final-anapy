@@ -5,10 +5,12 @@ const serieInput = document.querySelector('.js-serie');
 let resultList = document.querySelector('.js-list-results');
 let serie = '';
 let results = [];
+let favourites = [];
+let listItems = [];
 
 function clickHandler(ev) {
   ev.preventDefault();
-  cleanResults();
+  cleanResults(listItems);
   serie = serieInput.value;
   getApiData();
 }
@@ -47,14 +49,14 @@ function printResults() {
       newLi.appendChild(liImg);
       resultList.appendChild(newLi);
     }
+    listItems = document.querySelectorAll('.serie-container');
   }
-
 }
 
 //clean the last result removing all child from the ul tag or the error message
-function cleanResults () {
-  const listItems = document.querySelectorAll('.serie-container');
-  for(const child of listItems) {
+function cleanResults (items) {
+  //const listItems = document.querySelectorAll('.serie-container');
+  for(const child of items) {
     resultList.removeChild(child);
   }
   const errors = document.querySelector('.error');
@@ -67,8 +69,9 @@ function cleanResults () {
 function checkImg(index, item) {
   if(results[index].show.image.medium === null) {
     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
-  } else
+  } else {
     item.setAttribute('src', results[index].show.image.medium);
+  }
 }
 
 searchButton.addEventListener('click', clickHandler);
