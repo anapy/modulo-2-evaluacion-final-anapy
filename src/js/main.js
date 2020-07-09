@@ -2,15 +2,13 @@
 
 const searchButton = document.querySelector('.js-search');
 const serieInput = document.querySelector('.js-serie');
-const resultList = document.querySelector('.js-list-results');
+let resultList = document.querySelector('.js-list-results');
 let serie = '';
 let results = [];
 
-
-console.log('>> Ready :)');
-
 function clickHandler(ev) {
   ev.preventDefault();
+  cleanResults();
   serie = serieInput.value;
   console.log(serie);
   getApiData();
@@ -18,24 +16,40 @@ function clickHandler(ev) {
 
 function getApiData() {
   fetch(`http://api.tvmaze.com/search/shows?q=${serie}`)
-  .then(response => response.json())
-  .then(data => {
-    results = data;
-    printResults();
-  });
+    .then(response => response.json())
+    .then(data => {
+      results = data;
+      printResults();
+    });
 }
 
+//print the series given by the api
+//creates the elements by DOM appending to ul tag each li with its proper content
 function printResults() {
   for(let i = 0; i < results.length; i++) {
-    resultList.innerHTML += `<li class="serie-container"> 
-    <h2>${results[i].show.name}</h2>
-    <img src="${results[i].show.image.medium}" alt="${results[i].show.name}">
-    </li>`;
-    // resultList.innerHTML += `<h2>${results[i].show.name}</h2>`;
-    // resultList.innerHTML +=  `<img src="${results[i].show.image.medium}" alt="${results[i].show.name}">`
-    // resultList.innerHTML += `</li>`;
+    const newLi = document.createElement('li');
+    newLi.classList.add('serie-container');
+    const liTitle = document.createElement('h2');
+    liTitle.classList.add('serie-title');
+    const liTitleContent = document.createTextNode(results[i].show.name);
+    newLi.appendChild(liTitle);
+    const liImg = document.createElement('IMG');
+    liImg.setAttribute('src', results[i].show.image.medium);
+    liImg.setAttribute('alt', results[i].show.name);
+    liImg.setAttribute('id', results[i].show.name);
+    newLi.appendChild(liImg);
+    resultList.appendChild(newLi);
+  }
+}
+
+//clean the last result removing all child from the ul tag
+function cleanResults () {
+  const listItems = document.querySelectorAll('.serie-container');
+  for(const child of listItems) {
+    resultList.removeChild(child);
   }
 
 }
+
 
 searchButton.addEventListener('click', clickHandler);
