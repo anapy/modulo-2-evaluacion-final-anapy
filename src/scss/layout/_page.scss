@@ -54,7 +54,8 @@
 
 .serie-container {
   background-color: #BB304D;
-  border: 2px solid #CFEA92;
+  border: 2px solid #80001c;
+  box-shadow: 3px 3px #80001c;
   border-radius: 30px;
   margin: 10px;
   width: 250px;
@@ -89,5 +90,7 @@
 
 .js-favourite {
   background-color: #CFEA92;
+  border: none;
   color: #BB304D;
+  box-shadow: 3px 3px #9ebe53;
 }
