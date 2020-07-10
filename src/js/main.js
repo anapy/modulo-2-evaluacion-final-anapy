@@ -67,7 +67,7 @@ function cleanResults (items) {
 
 //checkImg checks whether is an image on the result array//
 function checkImg(index, item) {
-  if(results[index].show.image.medium === null) {
+  if(results[index].show.image === null) {
     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
   } else {
     item.setAttribute('src', results[index].show.image.medium);
