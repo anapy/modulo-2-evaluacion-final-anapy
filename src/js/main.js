@@ -50,6 +50,7 @@ function printResults() {
       resultList.appendChild(newLi);
     }
     listItems = document.querySelectorAll('.serie-container');
+    createEventListener(listItems);
   }
 }
 
@@ -72,6 +73,17 @@ function checkImg(index, item) {
   } else {
     item.setAttribute('src', results[index].show.image.medium);
   }
+}
+
+function createEventListener(lists) {
+  for(const item of lists) {
+    item.addEventListener('click', clickfavourite);
+  }
+
+}
+
+function clickfavourite(ev) {
+  console.log(ev.currentTarget);
 }
 
 searchButton.addEventListener('click', clickHandler);
