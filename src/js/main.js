@@ -101,6 +101,7 @@ function handlerClickfavourite(ev) {
   }
   favouriteItems = document.querySelectorAll('.serie-container-small');
   resultItems = document.querySelectorAll('.serie-container');
+  localStorage.setItem('localFavorites', JSON.stringify(favourites));
 }
 
 function cleanFavourites (items) {
@@ -134,4 +135,31 @@ function highlightFavourites(clicked) {
   newFavourite.classList.toggle('js-favourite');
 }
 
+function recoverData() {
+  const savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
+  if(savedFavourites.length !== 0) {
+    favourites = savedFavourites;
+    for(let i = 0; i < favourites.length; i++) {
+      const newLi = document.createElement('li');
+      newLi.classList.add('serie-container-small');
+      newLi.setAttribute('id', `fav${favourites[i].show.id}`);
+      const liTitle = document.createElement('h2');
+      liTitle.classList.add('serie-title');
+      const liTitleContent = document.createTextNode(favourites[i].show.name);
+      liTitle.appendChild(liTitleContent);
+      newLi.appendChild(liTitle);
+      const liImg = document.createElement('IMG');
+      checkImg(favourites, i, liImg);
+      liImg.setAttribute('alt', favourites[i].show.name);
+      liImg.setAttribute('height', '100px');
+      newLi.appendChild(liImg);
+      favouriteList.appendChild(newLi);
+    }
+    favouriteItems = document.querySelectorAll('.serie-container-small');
+    resultItems = document.querySelectorAll('.serie-container');
+    localStorage.setItem('localFavorites', JSON.stringify(favourites));
+  }
+}
+
+document.addEventListener('DOMContentLoaded', recoverData);
 searchButton.addEventListener('click', clickHandler);
