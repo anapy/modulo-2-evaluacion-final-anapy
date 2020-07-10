@@ -66,7 +66,7 @@ function cleanResults (items) {
   }
 }
 
-//checkImg checks whether is an image on the result array//
+//checkImg checks whether is an image on the results array//
 function checkImg(index, item) {
   if(results[index].show.image === null) {
     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
@@ -77,18 +77,29 @@ function checkImg(index, item) {
 
 function createEventListener(lists) {
   for(const item of lists) {
-    item.addEventListener('click', clickfavourite);
+    item.addEventListener('click', handlerClickfavourite);
   }
 }
 
-function clickfavourite(ev) {
+function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
-  //añade a favoritos las series seleccionadas
-  favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
-  highlightFavourites(clickedItem);
+  //check if the new item is already at favourites
+  const repeat = favourites.findIndex(favourite => favourite.show.id === parseInt(clickedItem));
+  // //add to favourites the new series or remove the series already on favourites
+  if(repeat === -1) {
+    favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
+    highlightFavourites(clickedItem);
+  } else {
+    highlightFavourites(clickedItem);
+    favourites.splice(repeat,1);
+  }
+
+  // //añade a favoritos las series seleccionadas
+  // favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
+  // highlightFavourites(clickedItem);
 }
 
-//highlight with a different 
+//highlight with a different background and color
 function highlightFavourites(clicked) {
   let newFavourite = document.getElementById(`${clicked}`);
   //marca o desmarca añadiendo la clase o quitándola del elemento
