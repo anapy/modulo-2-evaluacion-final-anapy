@@ -84,19 +84,28 @@ function handlerClickfavourite(ev) {
     favourites.splice(repeat,1);
   }
   for(let i = 0; i < favourites.length; i++) {
+    //creating li
     const newLi = document.createElement('li');
     newLi.classList.add('serie-container-small');
     newLi.setAttribute('id', `fav${favourites[i].show.id}`);
+    //creating X button
+    const libutton = document.createElement('button');
+    libutton.appendChild(document.createTextNode('X'));
+    libutton.classList.add('cross-button');
+    newLi.appendChild(libutton);
+    //creating li title
     const liTitle = document.createElement('h2');
     liTitle.classList.add('serie-title');
     const liTitleContent = document.createTextNode(favourites[i].show.name);
     liTitle.appendChild(liTitleContent);
     newLi.appendChild(liTitle);
+    //creating li img
     const liImg = document.createElement('IMG');
     checkImg(favourites, i, liImg);
     liImg.setAttribute('alt', favourites[i].show.name);
     liImg.setAttribute('height', '100px');
     newLi.appendChild(liImg);
+
     favouriteList.appendChild(newLi);
   }
   favouriteItems = document.querySelectorAll('.serie-container-small');
@@ -143,11 +152,18 @@ function recoverData() {
       const newLi = document.createElement('li');
       newLi.classList.add('serie-container-small');
       newLi.setAttribute('id', `fav${favourites[i].show.id}`);
+      //creating X button
+      const libutton = document.createElement('button');
+      libutton.appendChild(document.createTextNode('X'));
+      libutton.classList.add('cross-button');
+      newLi.appendChild(libutton);
+      //creating li title
       const liTitle = document.createElement('h2');
       liTitle.classList.add('serie-title');
       const liTitleContent = document.createTextNode(favourites[i].show.name);
       liTitle.appendChild(liTitleContent);
       newLi.appendChild(liTitle);
+      //creating li img 
       const liImg = document.createElement('IMG');
       checkImg(favourites, i, liImg);
       liImg.setAttribute('alt', favourites[i].show.name);
