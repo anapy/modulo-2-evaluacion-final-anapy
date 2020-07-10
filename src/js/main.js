@@ -93,10 +93,6 @@ function handlerClickfavourite(ev) {
     highlightFavourites(clickedItem);
     favourites.splice(repeat,1);
   }
-
-  // //añade a favoritos las series seleccionadas
-  // favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
-  // highlightFavourites(clickedItem);
 }
 
 //highlight with a different background and color
