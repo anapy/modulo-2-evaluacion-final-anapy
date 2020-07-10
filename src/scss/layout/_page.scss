@@ -1,3 +1,8 @@
+* {
+  color: rgb(228, 228, 228);
+  font-family: 'Roboto', sans-serif;
+}
+
 .wrapper {
   margin: 20px 20px 0;
   display: flex;
@@ -5,11 +10,13 @@
 }
 
 .body {
-  background-color: rgb(136, 155, 238);
+  background-color: #BB304D;
 }
 
 .header {
-  border: 3px solid #ff0000;
+  //border: 3px solid #ff0000;
+  background-color: #D28A74;
+  border-radius: 30px;
   width: 350px;
 }
 
@@ -19,8 +26,10 @@
   justify-content: center;
 }
 .serie-container-small {
-  border: 3px solid red;
-  background-color: rgb(136, 155, 238);
+  //border: 3px solid red;
+  background-color: #E7B8CC;
+  border-radius: 10px;
+  padding: 5px 0;
   width: 100%;
   text-align: center;
   font-size: 10px;
@@ -33,6 +42,7 @@
   }
   & .cross-button {
     transform: translate(0px, -40px);
+    border-radius: 50%;
     background-color: black;
     color: blanchedalmond;
     width: 20px;
@@ -43,16 +53,22 @@
 
 
 .serie-container {
-  background-color: rgb(136, 155, 238);
+  background-color: #BB304D;
+  border: 2px solid #CFEA92;
+  border-radius: 30px;
+  margin: 10px;
   width: 250px;
-  height: 350px;
+  height: 370px;
   text-align: center;
   font-size: 14px;
+  & h2 {
+    padding: 10px;
+  }
 }
 
 .main {
-  border: 3px solid blue;
-  background-color: rgb(136, 155, 238);
+  //border: 3px solid blue;
+  background-color: #BB304D;
   min-height: 720px;
 }
 
@@ -71,8 +87,7 @@
   width: 100%;
 }
 
-
 .js-favourite {
-  background-color: deeppink;
-  color: rgb(0, 225, 255);
+  background-color: #CFEA92;
+  color: #BB304D;
 }
