@@ -37,6 +37,7 @@ function printResults() {
     for(let i = 0; i < results.length; i++) {
       const newLi = document.createElement('li');
       newLi.classList.add('serie-container');
+      newLi.setAttribute('id', results[i].show.name);
       const liTitle = document.createElement('h2');
       liTitle.classList.add('serie-title');
       const liTitleContent = document.createTextNode(results[i].show.name);
@@ -45,7 +46,6 @@ function printResults() {
       const liImg = document.createElement('IMG');
       checkImg(i, liImg);
       liImg.setAttribute('alt', results[i].show.name);
-      liImg.setAttribute('id', results[i].show.name);
       newLi.appendChild(liImg);
       resultList.appendChild(newLi);
     }
@@ -83,7 +83,10 @@ function createEventListener(lists) {
 }
 
 function clickfavourite(ev) {
-  console.log(ev.currentTarget);
+  console.log(ev.currentTarget.id);
+  //añade a favoritos las series seleccionadas
+  favourites.push(results.find(result => result.show.name === ev.currentTarget.id));
+  console.log(favourites);
 }
 
 searchButton.addEventListener('click', clickHandler);
