@@ -44,7 +44,6 @@ function printResults() {
 
 //clean the last result removing all child from the ul tag or the error message
 function cleanResults (items) {
-  //const resultItems = document.querySelectorAll('.serie-container');
   for(const child of items) {
     resultList.removeChild(child);
   }
@@ -73,7 +72,6 @@ function createEventListener(lists) {
 function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
   cleanFavourites(favouriteItems);
-  //cleanFavourites (favourites);
   //check if the new item is already at favourites
   const repeat = favourites.findIndex(favourite => favourite.show.id === parseInt(clickedItem));
 
@@ -103,11 +101,9 @@ function handlerClickfavourite(ev) {
   }
   favouriteItems = document.querySelectorAll('.serie-container-small');
   resultItems = document.querySelectorAll('.serie-container');
-  //generateHTML(favouriteList, favourites);
 }
 
 function cleanFavourites (items) {
-  //const resultItems = document.querySelectorAll('.serie-container');
   for(const child of items) {
     favouriteList.removeChild(child);
   }
