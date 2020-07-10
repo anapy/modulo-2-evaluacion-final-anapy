@@ -37,7 +37,7 @@ function printResults() {
     for(let i = 0; i < results.length; i++) {
       const newLi = document.createElement('li');
       newLi.classList.add('serie-container');
-      newLi.setAttribute('id', results[i].show.name);
+      newLi.setAttribute('id', results[i].show.id);
       const liTitle = document.createElement('h2');
       liTitle.classList.add('serie-title');
       const liTitleContent = document.createTextNode(results[i].show.name);
@@ -79,14 +79,20 @@ function createEventListener(lists) {
   for(const item of lists) {
     item.addEventListener('click', clickfavourite);
   }
-
 }
 
 function clickfavourite(ev) {
-  console.log(ev.currentTarget.id);
+  let clickedItem = ev.currentTarget.id;
   //añade a favoritos las series seleccionadas
-  favourites.push(results.find(result => result.show.name === ev.currentTarget.id));
-  console.log(favourites);
+  favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
+  highlightFavourites(clickedItem);
+}
+
+//highlight with a different 
+function highlightFavourites(clicked) {
+  let newFavourite = document.getElementById(`${clicked}`);
+  //marca o desmarca añadiendo la clase o quitándola del elemento
+  newFavourite.classList.toggle('js-favourite');
 }
 
 searchButton.addEventListener('click', clickHandler);
