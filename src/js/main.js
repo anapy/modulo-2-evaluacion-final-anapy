@@ -34,7 +34,7 @@ function dataFilter() {
     let aux = {};
     aux.id = apiData[i].show.id;
     aux.name = apiData[i].show.name;
-    checkImgFirst(apiData, i, aux);
+    checkImg(apiData, i, aux);
     aux.listId = 'results';
     results.push(aux);
   }
@@ -69,7 +69,7 @@ function cleanResults (items) {
 }
 
 //checkImg checks whether is an image on the results array or the image attribute is empty//
-function checkImgFirst(list, index, item) {
+function checkImg(list, index, item) {
   if(list[index].show.image === null) {
     item.image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
   } else {
