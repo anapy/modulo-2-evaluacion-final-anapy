@@ -6,6 +6,7 @@ const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
 let serie = '';
 let results = [];
+let result = [];
 let resultItems = [];
 let favourites = [];
 let favouriteItems = [];
@@ -21,10 +22,22 @@ function getApiData() {
   fetch(`http://api.tvmaze.com/search/shows?q=${serie}`)
     .then(response => response.json())
     .then(data => {
-      results = data;
-      printResults();
+      result = data;
+      dataFilter(result, results);
+      //printResults();
     });
 }
+
+function dataFilter(info, infoResult) {
+  for(let i = 0; i < info.length; i++) {
+    let aux = {};
+    aux.id = info[i].show.id;
+    aux.name = info[i].show.name;
+    checkImgFirst(info, i);
+    infoResult.push(aux);
+  }
+}
+
 
 //print the series given by the api
 //creates the elements by DOM appending to ul tag each li with its proper content
@@ -36,11 +49,12 @@ function printResults() {
     error.appendChild(errorContent);
     resultList.appendChild(error);
   } else {
-    generateHTML(resultList, results);
+    generateHTML(results, resultList);
     resultItems = document.querySelectorAll('.serie-container');
     createEventListener(resultItems);
   }
 }
+
 
 //clean the last result removing all child from the ul tag or the error message
 function cleanResults (items) {
@@ -59,6 +73,15 @@ function checkImg(list, index, item) {
     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
   } else {
     item.setAttribute('src', list[index].show.image.medium);
+  }
+}
+
+//checkImg checks whether is an image on the results array//
+function checkImgFirst(list, index) {
+  if(list[index].show.image === null) {
+    list[index].image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
+  } else {
+    list[index].image = list[index].show.image.medium;
   }
 }
 
@@ -108,7 +131,6 @@ function handlerClickfavourite(ev) {
     liImg.setAttribute('alt', favourites[i].show.name);
     liImg.setAttribute('height', '100px');
     newLi.appendChild(liImg);
-
     favouriteList.appendChild(newLi);
   }
   favouriteItems = document.querySelectorAll('.serie-container-small');
@@ -122,18 +144,21 @@ function cleanFavourites (items) {
   }
 }
 
-function generateHTML(listcontainer, items) {
+function generateHTML(items, listcontainer) {
   for(let i = 0; i < items.length; i++) {
+    //creating li
     const newLi = document.createElement('li');
     newLi.classList.add('serie-container');
     newLi.setAttribute('id', items[i].show.id);
+    //creating li title
     const liTitle = document.createElement('h2');
     liTitle.classList.add('serie-title');
     const liTitleContent = document.createTextNode(items[i].show.name);
     liTitle.appendChild(liTitleContent);
     newLi.appendChild(liTitle);
+    //creating li img
     const liImg = document.createElement('IMG');
-    checkImg(results, i, liImg);
+    checkImg(items, i, liImg);
     liImg.setAttribute('alt', items[i].show.name);
     newLi.appendChild(liImg);
     listcontainer.appendChild(newLi);
