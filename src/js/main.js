@@ -6,7 +6,7 @@ const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
 let serie = '';
 let results = [];
-let result = [];
+let apiData = [];
 let resultItems = [];
 let favourites = [];
 let favouriteItems = [];
@@ -22,19 +22,19 @@ function getApiData() {
   fetch(`http://api.tvmaze.com/search/shows?q=${serie}`)
     .then(response => response.json())
     .then(data => {
-      result = data;
-      dataFilter(result, results);
+      apiData = data;
+      dataFilter();
       printResults();
     });
 }
 
-function dataFilter(info, infoResult) {
-  for(let i = 0; i < info.length; i++) {
+function dataFilter() {
+  for(let i = 0; i < apiData.length; i++) {
     let aux = {};
-    aux.id = info[i].show.id;
-    aux.name = info[i].show.name;
-    checkImgFirst(info, i);
-    infoResult.push(aux);
+    aux.id = apiData[i].show.id;
+    aux.name = apiData[i].show.name;
+    checkImgFirst(apiData, i, aux);
+    results.push(aux);
   }
 }
 
@@ -77,11 +77,11 @@ function checkImg(list, index, item) {
 }
 
 //checkImg checks whether is an image on the results array//
-function checkImgFirst(list, index) {
+function checkImgFirst(list, index, item) {
   if(list[index].show.image === null) {
-    list[index].image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
+    item.image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
   } else {
-    list[index].image = list[index].show.image.medium;
+    item.image = list[index].show.image.medium;
   }
 }
 
