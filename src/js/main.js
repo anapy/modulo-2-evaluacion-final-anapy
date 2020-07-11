@@ -29,11 +29,13 @@ function getApiData() {
 }
 
 function dataFilter() {
+  results = [];
   for(let i = 0; i < apiData.length; i++) {
     let aux = {};
     aux.id = apiData[i].show.id;
     aux.name = apiData[i].show.name;
     checkImgFirst(apiData, i, aux);
+    aux.listId = 'results';
     results.push(aux);
   }
 }
@@ -42,7 +44,7 @@ function dataFilter() {
 //creates the elements by DOM appending to ul tag each li with its proper content
 function printResults() {
   if(results.length === 0) {
-    const error = document.createElement('p');
+    const error = document.createElement('h2');
     error.classList.add('error');
     const errorContent = document.createTextNode('La serie buscada no está en nuestro listado, prueba de nuevo');
     error.appendChild(errorContent);
@@ -60,22 +62,13 @@ function cleanResults (items) {
   for(const child of items) {
     resultList.removeChild(child);
   }
-  const errors = document.querySelector('.error');
-  if(errors !== null) {
-    resultList.removeChild(errors);
+  const error = document.querySelector('.error');
+  if(error !== null) {
+    resultList.removeChild(error);
   }
 }
 
-// //checkImg checks whether is an image on the results array//
-// function checkImg(list, index, item) {
-//   if(list[index].show.image === null) {
-//     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
-//   } else {
-//     item.setAttribute('src', list[index].show.image.medium);
-//   }
-// }
-
-//checkImg checks whether is an image on the results array//
+//checkImg checks whether is an image on the results array or the image attribute is empty//
 function checkImgFirst(list, index, item) {
   if(list[index].show.image === null) {
     item.image = 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV';
@@ -99,39 +92,16 @@ function handlerClickfavourite(ev) {
 
   // //add to favourites the new series or remove the series already on favourites
   if(repeat === -1) {
-    favourites.push(results.find(result => result.show.id === parseInt(clickedItem)));
+    const newFav = results.find(result => result.id === parseInt(clickedItem));
+    newFav.listId = 'favourite';
+    favourites.push(newFav);
+    //favourites.push(results.find(result => result.id === parseInt(clickedItem)));
     highlightFavourites(clickedItem);
   } else {
     highlightFavourites(clickedItem);
     favourites.splice(repeat,1);
   }
-  for(let i = 0; i < favourites.length; i++) {
-    //creating li
-    const newLi = document.createElement('li');
-    newLi.classList.add('serie-container-small');
-    newLi.setAttribute('id', `fav${favourites[i].id}`);
-    //creating X button
-    const libutton = document.createElement('button');
-    libutton.classList.add('cross-button');
-    const cross = document.createElement('i');
-    cross.classList.add('fas');
-    cross.classList.add('fa-times');
-    libutton.appendChild(cross);
-    newLi.appendChild(libutton);
-    //creating li title
-    const liTitle = document.createElement('h2');
-    liTitle.classList.add('serie-title');
-    const liTitleContent = document.createTextNode(favourites[i].name);
-    liTitle.appendChild(liTitleContent);
-    newLi.appendChild(liTitle);
-    //creating li img
-    const liImg = document.createElement('IMG');
-    liImg.setAttribute('src', favourites[i].image);
-    liImg.setAttribute('alt', favourites[i].name);
-    liImg.setAttribute('height', '100px');
-    newLi.appendChild(liImg);
-    favouriteList.appendChild(newLi);
-  }
+  generateHTML(favourites, favouriteList);
   favouriteItems = document.querySelectorAll('.serie-container-small');
   resultItems = document.querySelectorAll('.serie-container');
   localStorage.setItem('localFavorites', JSON.stringify(favourites));
@@ -143,22 +113,42 @@ function cleanFavourites (items) {
   }
 }
 
-function generateHTML(items, listcontainer) {
-  for(let i = 0; i < items.length; i++) {
+function generateHTML(list, listcontainer) {
+  for(let i = 0; i < list.length; i++) {
     //creating li
     const newLi = document.createElement('li');
-    newLi.classList.add('serie-container');
-    newLi.setAttribute('id', items[i].id);
+    //giving different class and atributte for li
+    if(list[i].listId === 'results') {
+      newLi.classList.add('serie-container');
+      newLi.setAttribute('id', list[i].id);
+    } else {
+      newLi.classList.add('serie-container-small');
+      newLi.setAttribute('id', `fav${favourites[i].id}`);
+    }
+    if(list[i].listId === 'favourite') {
+    //button only for favourites
+      const libutton = document.createElement('button');
+      libutton.classList.add('cross-button');
+      const cross = document.createElement('i');
+      cross.classList.add('fas');
+      cross.classList.add('fa-times');
+      libutton.appendChild(cross);
+      newLi.appendChild(libutton);
+    }
     //creating li title
-    const liTitle = document.createElement('h2');
+    //giving different title tag by ternari operator
+    const liTitle = list[i].listId === 'results' ? document.createElement('h2') : document.createElement('h3');
     liTitle.classList.add('serie-title');
-    const liTitleContent = document.createTextNode(items[i].name);
+    const liTitleContent = document.createTextNode(list[i].name);
     liTitle.appendChild(liTitleContent);
     newLi.appendChild(liTitle);
     //creating li img
     const liImg = document.createElement('IMG');
-    liImg.setAttribute('src', items[i].image);
-    liImg.setAttribute('alt', items[i].name);
+    liImg.setAttribute('src', list[i].image);
+    liImg.setAttribute('alt', list[i].name);
+    if(list[i].listId === 'favourite') {
+      liImg.setAttribute('height', '100px');
+    }
     newLi.appendChild(liImg);
     listcontainer.appendChild(newLi);
   }
@@ -175,32 +165,7 @@ function recoverData() {
   const savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
   if(savedFavourites.length !== 0) {
     favourites = savedFavourites;
-    for(let i = 0; i < favourites.length; i++) {
-      const newLi = document.createElement('li');
-      newLi.classList.add('serie-container-small');
-      newLi.setAttribute('id', `fav${favourites[i].id}`);
-      //creating X button
-      const libutton = document.createElement('button');
-      libutton.classList.add('cross-button');
-      const cross = document.createElement('i');
-      cross.classList.add('fas');
-      cross.classList.add('fa-times');
-      libutton.appendChild(cross);
-      newLi.appendChild(libutton);
-      //creating li title
-      const liTitle = document.createElement('h2');
-      liTitle.classList.add('serie-title');
-      const liTitleContent = document.createTextNode(favourites[i].name);
-      liTitle.appendChild(liTitleContent);
-      newLi.appendChild(liTitle);
-      //creating li img 
-      const liImg = document.createElement('IMG');
-      liImg.setAttribute('src', favourites[i].image);
-      liImg.setAttribute('alt', favourites[i].name);
-      liImg.setAttribute('height', '100px');
-      newLi.appendChild(liImg);
-      favouriteList.appendChild(newLi);
-    }
+    generateHTML(favourites, favouriteList);
     favouriteItems = document.querySelectorAll('.serie-container-small');
     resultItems = document.querySelectorAll('.serie-container');
     localStorage.setItem('localFavorites', JSON.stringify(favourites));
