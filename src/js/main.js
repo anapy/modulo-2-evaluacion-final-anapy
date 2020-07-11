@@ -24,7 +24,7 @@ function getApiData() {
     .then(data => {
       result = data;
       dataFilter(result, results);
-      //printResults();
+      printResults();
     });
 }
 
