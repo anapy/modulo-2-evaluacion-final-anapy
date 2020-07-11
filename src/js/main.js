@@ -38,7 +38,6 @@ function dataFilter() {
   }
 }
 
-
 //print the series given by the api
 //creates the elements by DOM appending to ul tag each li with its proper content
 function printResults() {
@@ -67,14 +66,14 @@ function cleanResults (items) {
   }
 }
 
-//checkImg checks whether is an image on the results array//
-function checkImg(list, index, item) {
-  if(list[index].show.image === null) {
-    item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
-  } else {
-    item.setAttribute('src', list[index].show.image.medium);
-  }
-}
+// //checkImg checks whether is an image on the results array//
+// function checkImg(list, index, item) {
+//   if(list[index].show.image === null) {
+//     item.setAttribute('src', 'https://via.placeholder.com/210x295/ffffff/666666/?text=TV');
+//   } else {
+//     item.setAttribute('src', list[index].show.image.medium);
+//   }
+// }
 
 //checkImg checks whether is an image on the results array//
 function checkImgFirst(list, index, item) {
@@ -96,7 +95,7 @@ function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
   cleanFavourites(favouriteItems);
   //check if the new item is already at favourites
-  const repeat = favourites.findIndex(favourite => favourite.show.id === parseInt(clickedItem));
+  const repeat = favourites.findIndex(favourite => favourite.id === parseInt(clickedItem));
 
   // //add to favourites the new series or remove the series already on favourites
   if(repeat === -1) {
@@ -110,7 +109,7 @@ function handlerClickfavourite(ev) {
     //creating li
     const newLi = document.createElement('li');
     newLi.classList.add('serie-container-small');
-    newLi.setAttribute('id', `fav${favourites[i].show.id}`);
+    newLi.setAttribute('id', `fav${favourites[i].id}`);
     //creating X button
     const libutton = document.createElement('button');
     libutton.classList.add('cross-button');
@@ -122,13 +121,13 @@ function handlerClickfavourite(ev) {
     //creating li title
     const liTitle = document.createElement('h2');
     liTitle.classList.add('serie-title');
-    const liTitleContent = document.createTextNode(favourites[i].show.name);
+    const liTitleContent = document.createTextNode(favourites[i].name);
     liTitle.appendChild(liTitleContent);
     newLi.appendChild(liTitle);
     //creating li img
     const liImg = document.createElement('IMG');
-    checkImg(favourites, i, liImg);
-    liImg.setAttribute('alt', favourites[i].show.name);
+    liImg.setAttribute('src', favourites[i].image);
+    liImg.setAttribute('alt', favourites[i].name);
     liImg.setAttribute('height', '100px');
     newLi.appendChild(liImg);
     favouriteList.appendChild(newLi);
@@ -149,17 +148,17 @@ function generateHTML(items, listcontainer) {
     //creating li
     const newLi = document.createElement('li');
     newLi.classList.add('serie-container');
-    newLi.setAttribute('id', items[i].show.id);
+    newLi.setAttribute('id', items[i].id);
     //creating li title
     const liTitle = document.createElement('h2');
     liTitle.classList.add('serie-title');
-    const liTitleContent = document.createTextNode(items[i].show.name);
+    const liTitleContent = document.createTextNode(items[i].name);
     liTitle.appendChild(liTitleContent);
     newLi.appendChild(liTitle);
     //creating li img
     const liImg = document.createElement('IMG');
-    checkImg(items, i, liImg);
-    liImg.setAttribute('alt', items[i].show.name);
+    liImg.setAttribute('src', items[i].image);
+    liImg.setAttribute('alt', items[i].name);
     newLi.appendChild(liImg);
     listcontainer.appendChild(newLi);
   }
@@ -179,7 +178,7 @@ function recoverData() {
     for(let i = 0; i < favourites.length; i++) {
       const newLi = document.createElement('li');
       newLi.classList.add('serie-container-small');
-      newLi.setAttribute('id', `fav${favourites[i].show.id}`);
+      newLi.setAttribute('id', `fav${favourites[i].id}`);
       //creating X button
       const libutton = document.createElement('button');
       libutton.classList.add('cross-button');
@@ -191,13 +190,13 @@ function recoverData() {
       //creating li title
       const liTitle = document.createElement('h2');
       liTitle.classList.add('serie-title');
-      const liTitleContent = document.createTextNode(favourites[i].show.name);
+      const liTitleContent = document.createTextNode(favourites[i].name);
       liTitle.appendChild(liTitleContent);
       newLi.appendChild(liTitle);
       //creating li img 
       const liImg = document.createElement('IMG');
-      checkImg(favourites, i, liImg);
-      liImg.setAttribute('alt', favourites[i].show.name);
+      liImg.setAttribute('src', favourites[i].image);
+      liImg.setAttribute('alt', favourites[i].name);
       liImg.setAttribute('height', '100px');
       newLi.appendChild(liImg);
       favouriteList.appendChild(newLi);
