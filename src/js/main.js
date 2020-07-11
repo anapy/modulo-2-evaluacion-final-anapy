@@ -95,12 +95,11 @@ function handlerClickfavourite(ev) {
     const newFav = results.find(result => result.id === parseInt(clickedItem));
     newFav.listId = 'favourite';
     favourites.push(newFav);
-    //favourites.push(results.find(result => result.id === parseInt(clickedItem)));
-    highlightFavourites(clickedItem);
   } else {
-    highlightFavourites(clickedItem);
     favourites.splice(repeat,1);
   }
+  highlightFavourites(clickedItem);
+
   generateHTML(favourites, favouriteList);
   favouriteItems = document.querySelectorAll('.serie-container-small');
   resultItems = document.querySelectorAll('.serie-container');
