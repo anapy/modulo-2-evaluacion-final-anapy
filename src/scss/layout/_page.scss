@@ -21,6 +21,7 @@ button:focus{
   padding: 10px;
   background-color: #D28A74;
   border-radius: 30px;
+  min-width: 350px;
   width: 350px;
   & .serie-text{
     color: rgb(136, 6, 6);
@@ -65,6 +66,7 @@ button:focus{
     background-color: black;
     width: 30px;
     height: 30px;
+    flex-shrink: 0;
     & .fas {
       color: #f0f0f0;
       font-size: 18px;
