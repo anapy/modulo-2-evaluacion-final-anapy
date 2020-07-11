@@ -90,8 +90,11 @@ function handlerClickfavourite(ev) {
     newLi.setAttribute('id', `fav${favourites[i].show.id}`);
     //creating X button
     const libutton = document.createElement('button');
-    libutton.appendChild(document.createTextNode('X'));
     libutton.classList.add('cross-button');
+    const cross = document.createElement('i');
+    cross.classList.add('fas');
+    cross.classList.add('fa-times');
+    libutton.appendChild(cross);
     newLi.appendChild(libutton);
     //creating li title
     const liTitle = document.createElement('h2');
@@ -154,8 +157,11 @@ function recoverData() {
       newLi.setAttribute('id', `fav${favourites[i].show.id}`);
       //creating X button
       const libutton = document.createElement('button');
-      libutton.appendChild(document.createTextNode('X'));
       libutton.classList.add('cross-button');
+      const cross = document.createElement('i');
+      cross.classList.add('fas');
+      cross.classList.add('fa-times');
+      libutton.appendChild(cross);
       newLi.appendChild(libutton);
       //creating li title
       const liTitle = document.createElement('h2');
