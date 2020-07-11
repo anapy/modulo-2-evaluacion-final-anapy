@@ -4,6 +4,8 @@ const searchButton = document.querySelector('.js-search');
 const serieInput = document.querySelector('.js-serie');
 const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
+const resetBtn = document.querySelector('.js-reset-button');
+let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
 let results = [];
 let apiData = [];
@@ -51,7 +53,7 @@ function printResults() {
     resultList.appendChild(error);
   } else {
     generateHTML(results, resultList);
-    resultItems = document.querySelectorAll('.serie-container');
+    resultItems = document.querySelectorAll('.js-serie-container');
     createEventListener(resultItems);
   }
 }
@@ -101,8 +103,7 @@ function handlerClickfavourite(ev) {
   highlightFavourites(clickedItem);
 
   generateHTML(favourites, favouriteList);
-  favouriteItems = document.querySelectorAll('.serie-container-small');
-  resultItems = document.querySelectorAll('.serie-container');
+  favouriteItems = document.querySelectorAll('.js-serie-container-small');
   localStorage.setItem('localFavorites', JSON.stringify(favourites));
 }
 
@@ -118,16 +119,16 @@ function generateHTML(list, listcontainer) {
     const newLi = document.createElement('li');
     //giving different class and atributte for li
     if(list[i].listId === 'results') {
-      newLi.classList.add('serie-container');
+      newLi.classList.add('serie-container', 'js-serie-container');
       newLi.setAttribute('id', list[i].id);
     } else {
-      newLi.classList.add('serie-container-small');
+      newLi.classList.add('serie-container-small', 'js-serie-container-small');
       newLi.setAttribute('id', `fav${favourites[i].id}`);
     }
     if(list[i].listId === 'favourite') {
     //button only for favourites
       const libutton = document.createElement('button');
-      libutton.classList.add('cross-button');
+      libutton.classList.add('cross-button', 'js-cross-button');
       const cross = document.createElement('i');
       cross.classList.add('fas');
       cross.classList.add('fa-times');
@@ -161,15 +162,23 @@ function highlightFavourites(clicked) {
 }
 
 function recoverData() {
-  const savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
-  if(savedFavourites.length !== 0) {
+  if((savedFavourites.length !== 0) && (savedFavourites !== null)) {
     favourites = savedFavourites;
     generateHTML(favourites, favouriteList);
-    favouriteItems = document.querySelectorAll('.serie-container-small');
-    resultItems = document.querySelectorAll('.serie-container');
+    favouriteItems = document.querySelectorAll('.js-serie-container-small');
+    resultItems = document.querySelectorAll('.js-serie-container');
     localStorage.setItem('localFavorites', JSON.stringify(favourites));
   }
 }
 
+function resetFav() {
+  console.log('reseteaaaaa');
+  cleanFavourites(favouriteItems);
+  favouriteItems = [];
+  favourites = [];
+  localStorage.clear();
+}
+
 document.addEventListener('DOMContentLoaded', recoverData);
 searchButton.addEventListener('click', clickHandler);
+resetBtn.addEventListener('click', resetFav);

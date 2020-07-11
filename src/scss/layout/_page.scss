@@ -36,12 +36,26 @@ button:focus{
     border-radius: 20px;
   }
 }
-
-.favourite-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.favourite-container {
+  margin: 20px 0;
+  & .favorite-title {
+    display: inline-block;
+  }
+   & .favourite-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  & .reset-button {
+    margin-bottom: 5px;
+    background-color: #c0294a;
+    width: 132px;
+    height: 30px;
+    border-radius: 20px;
+    margin-left: 17px;
+  }
 }
+
 .serie-container-small {
   //border: 3px solid red;
   background-color: #E7B8CC;
