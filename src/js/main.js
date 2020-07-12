@@ -112,10 +112,6 @@ function handlerClickfavourite(ev) {
   createEventListener(crossBtn, deleteOne);
 }
 
-function reviseFavourites() {
-  // if()
-}
-
 function cleanFavourites (items) {
   for(const child of items) {
     favouriteList.removeChild(child);
@@ -194,6 +190,9 @@ function recoverData() {
 function resetFav() {
   crossBtn = document.querySelectorAll('.js-cross-button');
   cleanFavourites(favouriteItems);
+  for(let item of resultItems) {
+    item.classList.remove('js-favourite');
+  }
   favouriteItems = [];
   favourites = [];
   localStorage.clear();
