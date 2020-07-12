@@ -35,6 +35,13 @@ button:focus{
     height: 30px;
     border-radius: 20px;
   }
+  .header__title {
+    color: #e4e4e4;
+    .fa-youtube {
+      margin-right: 10px;color: #c0294a;
+    }
+  }
+
 }
 .favourite-container {
   margin: 20px 0;
@@ -45,7 +52,6 @@ button:focus{
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    justify-content: center;
     overflow-y: scroll;
     height: 600px;
     /* width */
