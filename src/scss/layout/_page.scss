@@ -45,6 +45,24 @@ button:focus{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    overflow-y: scroll;
+    height: 600px;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 15px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #D28A74;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #E7B8CC;
+    }
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #c0294a;
+    }
   }
   & .reset-button {
     margin-bottom: 5px;
@@ -70,6 +88,7 @@ button:focus{
   flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
+  height: 110px;
   & img {
     background-image: cover;
     border-radius: 10px;
@@ -134,3 +153,4 @@ button:focus{
   color: #BB304D;
   box-shadow: 3px 3px #9ebe53;
 }
+
