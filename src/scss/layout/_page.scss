@@ -13,15 +13,15 @@ button:focus{
 }
 
 .body {
-  background-color: #BB304D;
+  background-color: #d8c3c8;
   color: rgb(228, 228, 228);
 }
 
 .header {
   //border: 3px solid #ff0000;
   padding: 10px;
-  background-color: #D28A74;
-  border-radius: 30px;
+  background-color: #805c63;
+  border-radius: 10px;
   min-width: 350px;
   width: 350px;
   & .serie-text{
@@ -37,13 +37,25 @@ button:focus{
     border-radius: 20px;
   }
   .header__title {
+    margin-top: 0;
+    margin-bottom: 40px;
     color: #e4e4e4;
-    .fa-youtube {
-      margin-right: 10px;color: #c0294a;
+    text-align: center;
+    font-size: 35px;
+    letter-spacing: 2px;
+    .popcorn {
+      position: relative;
+      transform: translate(0px, 20px);
     }
   }
-
+  .claim {
+    margin-bottom: 10px;
+    & .fa-tv {
+      margin-left: 10px;
+    }
+  }
 }
+
 .favourite-container {
   margin: 20px 0;
   & .favorite-title {
@@ -86,7 +98,7 @@ button:focus{
   //border: 3px solid red;
   background-color: #E7B8CC;
   color: #805c63;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 5px 5px;
   margin: 5px;
   text-align: center;
@@ -99,6 +111,9 @@ button:focus{
   & img {
     background-image: cover;
     border-radius: 10px;
+  }
+  & h3 {
+    font-size: 18px;
   }
   & .cross-button {
     transform: translate(0px, -35px);
@@ -114,12 +129,11 @@ button:focus{
   }
 }
 
-
 .serie-container {
   background-color: #BB304D;
   border: 2px solid #80001c;
   box-shadow: 3px 3px #80001c;
-  border-radius: 50px;
+  border-radius: 30px;
   margin: 10px;
   width: 250px;
   height: 370px;
@@ -135,7 +149,7 @@ button:focus{
 
 .main {
   //border: 3px solid blue;
-  background-color: #BB304D;
+  background-color: #d8c3c8;
   min-height: 720px;
 }
 
