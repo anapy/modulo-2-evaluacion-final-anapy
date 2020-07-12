@@ -5,6 +5,7 @@ const serieInput = document.querySelector('.js-serie');
 const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
 const resetBtn = document.querySelector('.js-reset-button');
+let crossBtn = document.querySelectorAll('.js-cross-button');
 let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
 let results = [];
@@ -54,7 +55,7 @@ function printResults() {
   } else {
     generateHTML(results, resultList);
     resultItems = document.querySelectorAll('.js-serie-container');
-    createEventListener(resultItems);
+    createEventListener(resultItems, handlerClickfavourite);
   }
 }
 
@@ -80,11 +81,12 @@ function checkImg(list, index, item) {
 }
 
 //add the event listener for clicking series
-function createEventListener(lists) {
+function createEventListener(lists, handler) {
   for(const item of lists) {
-    item.addEventListener('click', handlerClickfavourite);
+    item.addEventListener('click', handler);
   }
 }
+
 
 function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
@@ -105,6 +107,9 @@ function handlerClickfavourite(ev) {
   generateHTML(favourites, favouriteList);
   favouriteItems = document.querySelectorAll('.js-serie-container-small');
   localStorage.setItem('localFavorites', JSON.stringify(favourites));
+  crossBtn = document.querySelectorAll('.js-cross-button');
+  let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
+  createEventListener(crossBtn, deleteOne);
 }
 
 function cleanFavourites (items) {
@@ -123,12 +128,13 @@ function generateHTML(list, listcontainer) {
       newLi.setAttribute('id', list[i].id);
     } else {
       newLi.classList.add('serie-container-small', 'js-serie-container-small');
-      newLi.setAttribute('id', `fav${favourites[i].id}`);
+      newLi.setAttribute('id', `fav${list[i].id}`);
     }
     if(list[i].listId === 'favourite') {
     //button only for favourites
       const libutton = document.createElement('button');
       libutton.classList.add('cross-button', 'js-cross-button');
+      libutton.setAttribute('id', list[i].id);
       const cross = document.createElement('i');
       cross.classList.add('fas');
       cross.classList.add('fa-times');
@@ -157,14 +163,18 @@ function generateHTML(list, listcontainer) {
 //highlight with a different background and color
 function highlightFavourites(clicked) {
   let newFavourite = document.getElementById(`${clicked}`);
-  //marca o desmarca añadiendo la clase o quitándola del elemento
-  newFavourite.classList.toggle('js-favourite');
+  if(newFavourite !== null) {
+    //marca o desmarca añadiendo la clase o quitándola del elemento
+    newFavourite.classList.toggle('js-favourite');
+  }
 }
 
 function recoverData() {
   if((savedFavourites.length !== 0) && (savedFavourites !== null)) {
     favourites = savedFavourites;
     generateHTML(favourites, favouriteList);
+    crossBtn = document.querySelectorAll('.js-cross-button');
+    createEventListener(crossBtn, deleteOne);
     favouriteItems = document.querySelectorAll('.js-serie-container-small');
     resultItems = document.querySelectorAll('.js-serie-container');
     localStorage.setItem('localFavorites', JSON.stringify(favourites));
@@ -172,11 +182,16 @@ function recoverData() {
 }
 
 function resetFav() {
-  console.log('reseteaaaaa');
+  crossBtn = document.querySelectorAll('.js-cross-button');
   cleanFavourites(favouriteItems);
   favouriteItems = [];
   favourites = [];
   localStorage.clear();
+  savedFavourites = favourites;
+}
+
+function deleteOne(ev) {
+  handlerClickfavourite(ev);
 }
 
 document.addEventListener('DOMContentLoaded', recoverData);
