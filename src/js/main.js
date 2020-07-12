@@ -108,8 +108,12 @@ function handlerClickfavourite(ev) {
   favouriteItems = document.querySelectorAll('.js-serie-container-small');
   localStorage.setItem('localFavorites', JSON.stringify(favourites));
   crossBtn = document.querySelectorAll('.js-cross-button');
-  let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
+  savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
   createEventListener(crossBtn, deleteOne);
+}
+
+function reviseFavourites() {
+  // if()
 }
 
 function cleanFavourites (items) {
@@ -154,6 +158,12 @@ function generateHTML(list, listcontainer) {
     liImg.setAttribute('alt', list[i].name);
     if(list[i].listId === 'favourite') {
       liImg.setAttribute('height', '100px');
+    }
+    if((favourites !== null) && (list[i].listId === 'results')){
+      let savedFav = favourites.findIndex(favourite => favourite.id === list[i].id);
+      if(savedFav !== -1) {
+        newLi.classList.add('js-favourite');
+      }
     }
     newLi.appendChild(liImg);
     listcontainer.appendChild(newLi);
