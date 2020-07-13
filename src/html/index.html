@@ -16,13 +16,13 @@
   <div class="wrapper">
     <header class="header hidden animate__animated animate__zoomIn">
       <h1 class="header__title">Serieaholic<img src="../assets/images/popcorn.svg" class="popcorn" alt="popcorn-box" height=100px"></h1>
-      <p class="claim">Find your series below...<i class="fas fa-tv"></i></p>
-      <form>
+      <p class="header__claim">Find your series below...<i class="fas fa-tv"></i></p>
+      <form class="header__form">
         <label for="serie"></label>
-        <input id="serie" name="serie" type="text" placeholder="Juego de tronos" class="js-serie serie-text" required>
+        <input id="serie" name="serie" type="text" placeholder="Juego de tronos" class="js-serie serie-input" required>
         <input type="submit" value="SEARCH" class="js-search search-button">
       </form>
-      <aside class="favourite-container">
+      <aside class="header__favourite__container">
         <h2 class="favorite-title">Your favourites</h2>
         <button class="reset-button js-reset-button">CLEAN FAVOURITES</button>
         <ul class="favourite-list js-favourite-list"></ul>
@@ -34,7 +34,7 @@
         <img src="../assets/images/television.svg" class="start-tv animate__animated animate__bounceIn" alt="tv" height="600px">
         <p class="start-claim">Find your series...</p>
       </div>
-      <div class="result-container">
+      <div class="main__result__container">
         <ul class="js-list-results list-results"></ul>
       </div>
     </main>
