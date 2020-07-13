@@ -358,8 +358,16 @@ template {
   text-decoration: none;
 }
 
+p, h1, h2, h3, h4, ul {
+  margin: 0;
+}
+
 body {
   font-family: $font-main;
   min-width: 320px;
-
+  letter-spacing: 1px;
 }
+
+button:focus, .search-button{
+  outline: none;
+}  
