@@ -19,13 +19,14 @@ button:focus{
 
 .header {
   //border: 3px solid #ff0000;
-  padding: 10px;
+  padding: 15px;
   background-color: #805c63;
   border-radius: 10px;
   min-width: 350px;
   width: 350px;
   & .serie-text{
     color: rgb(136, 6, 6);
+    padding: 2px 5px;
     &::placeholder {
       color:#805c63;
     }
@@ -73,7 +74,7 @@ button:focus{
     }
     /* Track */
     &::-webkit-scrollbar-track {
-      background: #D28A74;
+      background: #805c63;
     }
     /* Handle */
     &::-webkit-scrollbar-thumb {
@@ -173,6 +174,8 @@ button:focus{
 }
 
 .footer {
+  color: #805c63;
+  font-size: 20px;
   position: relative;
   padding: 20px 20px 0px;
   display: flex;

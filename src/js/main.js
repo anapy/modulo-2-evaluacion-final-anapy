@@ -219,5 +219,4 @@ const showHeader = () => {
   start.classList.add('animate__zoomIn');
 };
 
-
-setTimeout(showHeader, 3000);
+setTimeout(showHeader, 2500);
