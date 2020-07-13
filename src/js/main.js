@@ -47,20 +47,25 @@ function dataFilter() {
 }
 
 //print the series given by the api
-//creates the elements by DOM appending to ul tag each li with its proper content
+//create the elements by DOM appending to ul tag each li with its proper content
 function printResults() {
   if(results.length === 0) {
-    const error = document.createElement('h2');
-    error.classList.add('js-error', 'error');
-    const errorContent = document.createTextNode('Ops, we don\'t find any serie with that name. Try again!');
-    error.appendChild(errorContent);
-    resultList.appendChild(error);
-    resultItems = document.querySelectorAll('.js-error');
+    inputError();
   } else {
     generateHTML(results, resultList);
     resultItems = document.querySelectorAll('.js-serie-container');
     createEventListener(resultItems, handlerClickfavourite);
   }
+}
+
+//generate the error message and add it to resultList
+function inputError() {
+  const error = document.createElement('h2');
+  error.classList.add('js-error', 'error');
+  const errorContent = document.createTextNode('Ops, we don\'t find any serie with that name. Try again!');
+  error.appendChild(errorContent);
+  resultList.appendChild(error);
+  resultItems = document.querySelectorAll('.js-error');
 }
 
 //clean the last result removing all child from the ul tag or the error message
@@ -94,17 +99,7 @@ function createEventListener(lists, handler) {
 function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
   cleanHTML(favouriteItems, favouriteList);
-  //check if the new item is already at favourites
-  const repeat = favourites.findIndex(favourite => favourite.id === parseInt(clickedItem));
-
-  //add to favourites the new series or remove the series already on favourites
-  if(repeat === -1) {
-    const newFav = results.find(result => result.id === parseInt(clickedItem));
-    newFav.listId = 'favourite';
-    favourites.push(newFav);
-  } else {
-    favourites.splice(repeat,1);
-  }
+  checkRepeatFavourites(clickedItem);
   highlightFavourites(clickedItem);
   generateHTML(favourites, favouriteList);
   favouriteItems = document.querySelectorAll('.js-serie-container-small');
@@ -112,6 +107,19 @@ function handlerClickfavourite(ev) {
   crossBtn = document.querySelectorAll('.js-cross-button');
   savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
   createEventListener(crossBtn, deleteOne);
+}
+
+//check if the new item is already at favourites
+function checkRepeatFavourites(clicked) {
+  const repeat = favourites.findIndex(favourite => favourite.id === parseInt(clicked));
+  //add to favourites the new series or remove the series already on favourites
+  if(repeat === -1) {
+    const newFav = results.find(result => result.id === parseInt(clicked));
+    newFav.listId = 'favourite';
+    favourites.push(newFav);
+  } else {
+    favourites.splice(repeat,1);
+  }
 }
 
 //generates the HTML for main results and favourites
