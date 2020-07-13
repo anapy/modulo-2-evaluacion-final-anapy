@@ -151,7 +151,13 @@ button:focus{
   //border: 3px solid blue;
   background-color: #d8c3c8;
   min-height: 720px;
+  display: flex;
+  align-items: center;
 }
+.start-container {
+  transform: translate(25vw, 0px);
+}
+
 
 .list-results {
   display: flex;
@@ -182,3 +188,16 @@ button:focus{
   box-shadow: 3px 3px #9ebe53;
 }
 
+//animation
+.hidden {
+  display: none;
+}
+
+.front__title {
+  font-size: 80px;
+}
+
+// .animate__bounceIn {
+//   --animate__repeat: 5 2;
+//   --animate-delay: 2s;
+// }

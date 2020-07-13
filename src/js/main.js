@@ -206,3 +206,17 @@ function deleteOne(ev) {
 document.addEventListener('DOMContentLoaded', recoverData);
 searchButton.addEventListener('click', clickHandler);
 resetBtn.addEventListener('click', resetFav);
+
+
+//animations
+
+const showHeader = () => {
+  const header = document.querySelector('.header');
+  const front = document.querySelector('.start-container');
+  header.classList.remove('hidden');
+  header.classList.add('animate__animated', 'animate__zoomIn');
+  front.classList.add('hidden');
+};
+
+
+setTimeout(showHeader, 3000);
