@@ -193,9 +193,18 @@ button:focus{
   display: none;
 }
 
-.front__title {
+.start__title {
+  color: #BB304D;
   font-size: 80px;
+  .start-popcorn {
+    transform: translate(0px, 40px);
+  }
 }
+.start-claim {
+  color: #805c63;
+  font-size: 20px;
+}
+
 
 // .animate__bounceIn {
 //   --animate__repeat: 5 2;
