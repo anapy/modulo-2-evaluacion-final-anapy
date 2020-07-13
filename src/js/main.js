@@ -95,7 +95,6 @@ function createEventListener(lists, handler) {
   }
 }
 
-
 function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
   cleanHTML(favouriteItems, favouriteList);
