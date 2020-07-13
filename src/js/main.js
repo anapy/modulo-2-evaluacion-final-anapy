@@ -97,7 +97,7 @@ function handlerClickfavourite(ev) {
   //check if the new item is already at favourites
   const repeat = favourites.findIndex(favourite => favourite.id === parseInt(clickedItem));
 
-  // //add to favourites the new series or remove the series already on favourites
+  //add to favourites the new series or remove the series already on favourites
   if(repeat === -1) {
     const newFav = results.find(result => result.id === parseInt(clickedItem));
     newFav.listId = 'favourite';
