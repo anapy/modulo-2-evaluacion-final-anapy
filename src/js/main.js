@@ -206,11 +206,9 @@ resetBtn.addEventListener('click', resetFav);
 
 
 //animations
-
 const showHeader = () => {
   header.classList.remove('hidden');
   header.classList.add('animate__animated', 'animate__zoomIn');
-  start.classList.add('animate__zoomIn');
 };
 
 setTimeout(showHeader, 2500);
