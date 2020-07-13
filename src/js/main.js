@@ -5,9 +5,9 @@ const serieInput = document.querySelector('.js-serie');
 const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
 const resetBtn = document.querySelector('.js-reset-button');
-let crossBtn = document.querySelectorAll('.js-cross-button');
 const header = document.querySelector('.header');
 const start = document.querySelector('.js-show-start');
+let crossBtn = document.querySelectorAll('.js-cross-button');
 let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
 let results = [];
@@ -19,7 +19,7 @@ let favouriteItems = [];
 function clickHandler(ev) {
   ev.preventDefault();
   start.classList.add('hidden');
-  cleanResults(resultItems);
+  cleanHTML(resultItems, resultList);
   serie = serieInput.value;
   getApiData();
 }
@@ -55,6 +55,7 @@ function printResults() {
     const errorContent = document.createTextNode('Ops, we don\'t find any serie with that name. Try again!');
     error.appendChild(errorContent);
     resultList.appendChild(error);
+    resultItems = document.querySelectorAll('.js-error');
   } else {
     generateHTML(results, resultList);
     resultItems = document.querySelectorAll('.js-serie-container');
@@ -62,15 +63,14 @@ function printResults() {
   }
 }
 
-
 //clean the last result removing all child from the ul tag or the error message
-function cleanResults (items) {
+function cleanHTML (items, itemcontainer) {
   for(const child of items) {
-    resultList.removeChild(child);
+    itemcontainer.removeChild(child);
   }
   const error = document.querySelector('.js-error');
   if(error !== null) {
-    resultList.removeChild(error);
+    itemcontainer.removeChild(error);
   }
 }
 
@@ -93,7 +93,7 @@ function createEventListener(lists, handler) {
 
 function handlerClickfavourite(ev) {
   let clickedItem = ev.currentTarget.id;
-  cleanFavourites(favouriteItems);
+  cleanHTML(favouriteItems, favouriteList);
   //check if the new item is already at favourites
   const repeat = favourites.findIndex(favourite => favourite.id === parseInt(clickedItem));
 
@@ -106,7 +106,6 @@ function handlerClickfavourite(ev) {
     favourites.splice(repeat,1);
   }
   highlightFavourites(clickedItem);
-
   generateHTML(favourites, favouriteList);
   favouriteItems = document.querySelectorAll('.js-serie-container-small');
   localStorage.setItem('localFavorites', JSON.stringify(favourites));
@@ -115,12 +114,7 @@ function handlerClickfavourite(ev) {
   createEventListener(crossBtn, deleteOne);
 }
 
-function cleanFavourites (items) {
-  for(const child of items) {
-    favouriteList.removeChild(child);
-  }
-}
-
+//generates the HTML for main results and favourites
 function generateHTML(list, listcontainer) {
   for(let i = 0; i < list.length; i++) {
     //creating li
@@ -171,7 +165,7 @@ function generateHTML(list, listcontainer) {
 
 //highlight with a different background and color
 function highlightFavourites(clicked) {
-  let newFavourite = document.getElementById(`${clicked}`);
+  const newFavourite = document.getElementById(`${clicked}`);
   if(newFavourite !== null) {
     //marca o desmarca añadiendo la clase o quitándola del elemento
     newFavourite.classList.toggle('js-favourite');
@@ -192,7 +186,7 @@ function recoverData() {
 
 function resetFav() {
   crossBtn = document.querySelectorAll('.js-cross-button');
-  cleanFavourites(favouriteItems);
+  cleanHTML(favouriteItems, favouriteList);
   for(let item of resultItems) {
     item.classList.remove('js-favourite');
   }
