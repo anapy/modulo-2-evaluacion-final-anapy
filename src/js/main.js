@@ -7,7 +7,7 @@ const favouriteList = document.querySelector('.js-favourite-list');
 const resetBtn = document.querySelector('.js-reset-button');
 let crossBtn = document.querySelectorAll('.js-cross-button');
 const header = document.querySelector('.header');
-const start = document.querySelector('.start-container');
+const start = document.querySelector('.js-show-start');
 let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
 let results = [];
@@ -51,8 +51,8 @@ function dataFilter() {
 function printResults() {
   if(results.length === 0) {
     const error = document.createElement('h2');
-    error.classList.add('error');
-    const errorContent = document.createTextNode('La serie buscada no está en nuestro listado, prueba de nuevo');
+    error.classList.add('js-error', 'error');
+    const errorContent = document.createTextNode('Ops, we don\'t find any serie with that name. Try again!');
     error.appendChild(errorContent);
     resultList.appendChild(error);
   } else {
@@ -68,7 +68,7 @@ function cleanResults (items) {
   for(const child of items) {
     resultList.removeChild(child);
   }
-  const error = document.querySelector('.error');
+  const error = document.querySelector('.js-error');
   if(error !== null) {
     resultList.removeChild(error);
   }
@@ -179,7 +179,7 @@ function highlightFavourites(clicked) {
 }
 
 function recoverData() {
-  if((savedFavourites.length !== 0) && (savedFavourites !== null)) {
+  if((savedFavourites !== null) && (savedFavourites.length !== 0)) {
     favourites = savedFavourites;
     generateHTML(favourites, favouriteList);
     crossBtn = document.querySelectorAll('.js-cross-button');
