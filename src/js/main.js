@@ -6,7 +6,7 @@ const resultList = document.querySelector('.js-list-results');
 const favouriteList = document.querySelector('.js-favourite-list');
 const resetBtn = document.querySelector('.js-reset-button');
 const header = document.querySelector('.header');
-const start = document.querySelector('.js-show-start');
+const defaultBackground = document.querySelector('.js-show-start');
 let crossBtn = document.querySelectorAll('.js-cross-button');
 let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
@@ -18,7 +18,7 @@ let favouriteItems = [];
 
 function clickHandler(ev) {
   ev.preventDefault();
-  start.classList.add('hidden');
+  defaultBackground.classList.add('hidden');
   cleanHTML(resultItems, resultList);
   serie = serieInput.value;
   getApiData();
@@ -211,4 +211,4 @@ const showHeader = () => {
   header.classList.add('animate__animated', 'animate__zoomIn');
 };
 
-setTimeout(showHeader, 2500);
+setTimeout(showHeader, 2000);
