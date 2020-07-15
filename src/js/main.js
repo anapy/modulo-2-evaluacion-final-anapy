@@ -15,6 +15,8 @@ let apiData = [];
 let resultItems = [];
 let favourites = [];
 let favouriteItems = [];
+const buttonFavourites = document.querySelector('.js-show-favourites');
+
 
 function clickHandler(ev) {
   ev.preventDefault();
@@ -41,8 +43,17 @@ function dataFilter() {
     aux.id = apiData[i].show.id;
     aux.name = apiData[i].show.name;
     checkImg(apiData, i, aux);
+    checkDays(apiData, i, aux)
     aux.listId = 'results';
     results.push(aux);
+  }
+}
+
+function checkDays(list, index, item) {
+  if(list[index].show.image === null) {
+    item.days = '';
+  } else {
+    item.days = list[index].show.schedule.days;
   }
 }
 
@@ -159,6 +170,16 @@ function generateHTML(list, listcontainer) {
     if(list[i].listId === 'favourite') {
       liImg.setAttribute('height', '100px');
     }
+    //creating li days
+    if(list[i].listId === 'results') {
+      const liDays = document.createElement('p');
+      let liDaysContent = document.createTextNode('The serie is no more on TV');
+      if((list[i].days.length !== 0)) {
+        liDaysContent = document.createTextNode(list[i].days);
+      }
+      liDays.appendChild(liDaysContent);
+      newLi.appendChild(liDays);
+    }
     if((favourites !== null) && (list[i].listId === 'results')){
       let savedFav = favourites.findIndex(favourite => favourite.id === list[i].id);
       if(savedFav !== -1) {
@@ -218,4 +239,10 @@ const showHeader = () => {
   header.classList.add('animate__animated', 'animate__zoomIn');
 };
 
-setTimeout(showHeader, 2000);
+setTimeout(showHeader, 1000);
+
+function showFav() {
+  console.log(favourites);
+}
+
+buttonFavourites.addEventListener('click', showFav);

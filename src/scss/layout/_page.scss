@@ -16,6 +16,12 @@
   border-radius: 10px;
   min-width: 350px;
   width: 350px;
+  .console-button {
+    background-color: #BB304D;
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+  }
   &__title {
     margin-top: 0;
     margin-bottom: 40px;
