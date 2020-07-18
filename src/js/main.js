@@ -7,6 +7,8 @@ const favouriteList = document.querySelector('.js-favourite-list');
 const resetBtn = document.querySelector('.js-reset-button');
 const header = document.querySelector('.header');
 const defaultBackground = document.querySelector('.js-show-start');
+const arrowBtn = document.querySelector('.open_button')
+const sectionFav = document.querySelector('.js-list');
 let crossBtn = document.querySelectorAll('.js-cross-button');
 let savedFavourites = JSON.parse(localStorage.getItem('localFavorites'));
 let serie = '';
@@ -242,8 +244,7 @@ const showHeader = () => {
 
 setTimeout(showHeader, 2500);
 
-function showFav() {
-  console.log(favourites);
+function arrowHandler() {
+  sectionFav.classList.toggle('hidden');
 }
-
-buttonFavourites.addEventListener('click', showFav);
+arrowBtn.addEventListener('click', arrowHandler);
