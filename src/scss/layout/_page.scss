@@ -2,6 +2,7 @@
   margin: 20px 20px 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
   @include tablet {
     display: flex;
     flex-direction: row;
@@ -142,7 +143,6 @@
 
 .main {
   background-color: $color-light-primary;
-  min-height: 720px;
   display: flex;
   align-items: center;
   & .start {
@@ -157,12 +157,24 @@
     }
     &__title {
       color: $color-dark-primary;
-      font-size: rem(80);
+      font-size: rem(40);
       letter-spacing: 2px;
       @include tablet {
+        font-size: rem(80);
       }
     &__popcorn {
-        transform: translate(0px, 40px);
+        transform: translate(0px, 20px);
+        height: 100px;
+        @include tablet {
+          transform: translate(0px, 40px);
+          height: 200px;
+        }
+      }
+    }
+    & .start-tv {
+      height: 400px;
+      @include tablet {
+        height: 600px;
       }
     }
     &__claim {
@@ -177,7 +189,10 @@
       flex-wrap: wrap;
       justify-content: center;
       overflow-y: scroll ;
-      height: 785px;
+      height: 500px;
+      @include tablet {
+        height: 785px;
+      }
       .error {
         color: $color-medium-primary;
         padding: 50px;
@@ -216,8 +231,6 @@
 }
 
 .footer {
-  position: fixed;
-  bottom: 0px;
   color: $color-medium-primary;
   font-size: rem(20);
   padding: 10px 20px 0px;
@@ -225,6 +238,17 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  @include tablet {
+    position: fixed;
+    bottom: 0px;
+    color: $color-medium-primary;
+    font-size: rem(20);
+    padding: 10px 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 }
 
 //hide sections
