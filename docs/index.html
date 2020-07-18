@@ -23,12 +23,14 @@
         <label for="serie"></label>
         <input id="serie" name="serie" type="text" placeholder="Juego de tronos" class="js-serie serie-input" required>
         <input type="submit" value="SEARCH" class="js-search search-button">
-        
       </form>
       <aside class="header__favourite__container">
         <h2 class="favorite-title">Your favourites</h2>
         <button class="reset-button js-reset-button">CLEAN FAVOURITES</button>
-        <ul class="favourite-list js-favourite-list"></ul>
+        <button class="open_button"><i class="fas fa-angle-up"></i></button>
+        <div class="js-list">        
+          <ul class="favourite-list js-favourite-list"></ul>
+        </div>
       </aside>
     </header>
     <main class="main">
