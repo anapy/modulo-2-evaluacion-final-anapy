@@ -173,6 +173,7 @@ function generateHTML(list, listcontainer) {
     //creating li days
     if(list[i].listId === 'results') {
       const liDays = document.createElement('p');
+      liDays.classList.add('days');
       let liDaysContent = document.createTextNode('The serie is no more on TV');
       if((list[i].days.length !== 0)) {
         liDaysContent = document.createTextNode(list[i].days);

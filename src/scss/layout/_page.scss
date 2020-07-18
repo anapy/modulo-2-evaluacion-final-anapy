@@ -231,6 +231,12 @@
             height: fit-content;
           }
         }
+        & .days {
+          overflow-x: hidden;
+          ::-webkit-scrollbar {
+            display: hidden;
+          }
+        }
       }
       //hightlight favourites
       & .js-favourite {
