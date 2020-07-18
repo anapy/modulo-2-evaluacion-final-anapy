@@ -240,7 +240,7 @@ const showHeader = () => {
   header.classList.add('animate__animated', 'animate__zoomIn');
 };
 
-setTimeout(showHeader, 1000);
+setTimeout(showHeader, 2500);
 
 function showFav() {
   console.log(favourites);
