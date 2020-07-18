@@ -208,15 +208,28 @@
         box-shadow: 3px 3px $color-dark-secondary;
         border-radius: 30px;
         margin: 10px;
-        width: 250px;
-        height: 370px;
+        width: 150px;
+        height: 250px;
         text-align: center;
         font-size: rem(14);
+        @include tablet {
+          border-radius: 30px;
+          margin: 10px;
+          width: 250px;
+          height: 370px;
+          text-align: center;
+          font-size: rem(14);
+        }
         & h2 {
           padding: 10px;
         }
         & img {
-          border-radius: 30px;
+          border-radius: 20px;
+          height: 150px;
+            @include tablet {
+            border-radius: 30px;
+            height: fit-content;
+          }
         }
       }
       //hightlight favourites
